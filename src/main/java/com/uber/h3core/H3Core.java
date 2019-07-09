@@ -21,6 +21,7 @@ import com.uber.h3core.exceptions.LocalIjUndefinedException;
 import com.uber.h3core.exceptions.PentagonEncounteredException;
 import com.uber.h3core.util.CoordIJ;
 import com.uber.h3core.util.GeoCoord;
+import com.uber.h3core.util.LongUtils;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -925,7 +926,7 @@ public class H3Core {
      * Converts from <code>String</code> representation of an index to <code>long</code> representation.
      */
     public long stringToH3(String h3Address) {
-        return Long.parseUnsignedLong(h3Address, 16);
+        return LongUtils.parseUnsignedLong(h3Address, 16);
     }
 
     /**
