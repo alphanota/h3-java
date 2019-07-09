@@ -110,7 +110,7 @@ public final class H3CoreLoader {
         // loading the shared object at the same time, bad things could happen.
 
         if (libraryFile == null) {
-            final String dirName = String.format("%s-%s", os.getDirName(), arch);
+            final String dirName = String.format("%s%s-%s",getLibraryPath(os), os.getDirName(), arch);
             final String libName = String.format("libh3-java%s", os.getSuffix());
 
             final File newLibraryFile = File.createTempFile("libh3-java", os.getSuffix());
@@ -125,6 +125,23 @@ public final class H3CoreLoader {
         System.load(libraryFile.getCanonicalPath());
 
         return new NativeMethods();
+    }
+
+
+    /**
+     *
+     * In android, native library files are stored in the lib/ directory
+     * Files import into the apk via manually copying them into a jniLibs folder will be loaded in the lib/ directory
+     * in the projects base.apk
+     *
+     * This method will return "lib/" if the OperatingSystem is android and an empty string otherwise
+     *
+     * @param os
+     * @return String the parent directory where the libh3.so file is located or an empty string
+     * if the OperatingSystem is not android.
+     */
+    private static String getLibraryPath(OperatingSystem os) {
+        return os == OperatingSystem.ANDROID ? "/lib/" : "";
     }
 
     /**

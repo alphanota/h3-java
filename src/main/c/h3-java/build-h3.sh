@@ -130,12 +130,7 @@ for image in android-arm android-arm64 linux-arm64 linux-armv5 linux-armv7 linux
 
     # Copy the built artifact into the source tree so it can be included in the
     # built JAR.
-    if [ "$image" = "android-arm" ]
-    then OUTPUT_ROOT=src/main/resources/arm
-    elif [ "$image" = "android-arm64" ]
-    then OUTPUT_ROOT=src/main/resources/arm64
-    else OUTPUT_ROOT=src/main/resources/$image
-    fi
+    OUTPUT_ROOT=src/main/resources/$image
     mkdir -p $OUTPUT_ROOT
     if [ -e $BUILD_ROOT/lib/libh3-java.so ]; then cp $BUILD_ROOT/lib/libh3-java.so $OUTPUT_ROOT ; fi
     if [ -e $BUILD_ROOT/lib/libh3-java.dylib ]; then cp $BUILD_ROOT/lib/libh3-java.dylib $OUTPUT_ROOT ; fi
