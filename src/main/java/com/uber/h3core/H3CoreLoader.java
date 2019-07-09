@@ -141,7 +141,7 @@ public final class H3CoreLoader {
      * if the OperatingSystem is not android.
      */
     private static String getLibraryPath(OperatingSystem os) {
-        return os == OperatingSystem.ANDROID ? "/lib/" : "";
+        return os == OperatingSystem.ANDROID ? "lib/" : "";
     }
 
     /**
