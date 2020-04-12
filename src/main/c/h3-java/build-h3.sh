@@ -115,14 +115,37 @@ if ! command -v docker; then
 fi
 
 # linux-armv6 excluded because of build failure
-for image in android-arm android-arm64 linux-arm64 linux-armv5 linux-armv7 linux-mipsel linux-mips linux-s390x \
-    linux-ppc64le linux-x64 linux-x86 windows-x64 windows-x86; do
+#for image in android-arm android-arm64 linux-arm64 linux-armv5 linux-armv7 linux-mipsel linux-mips linux-s390x \
+#    linux-ppc64le linux-x64 linux-x86 windows-x64 windows-x86; do
+#
+#    # Setup for using dockcross
+#    BUILD_ROOT=target/h3-java-build-$image
+#    mkdir -p $BUILD_ROOT
+#    docker pull dockcross/$image
+#    docker run --rm dockcross/$image > $BUILD_ROOT/dockcross
+#    chmod +x $BUILD_ROOT/dockcross
+#
+#    # Perform the actual build inside Docker
+#    $BUILD_ROOT/dockcross --args "-v $JAVA_HOME:/java" src/main/c/h3-java/build-h3-docker.sh "$BUILD_ROOT"
+#
+#    # Copy the built artifact into the source tree so it can be included in the
+#    # built JAR.
+#    OUTPUT_ROOT=src/main/resources/$image
+#    mkdir -p $OUTPUT_ROOT
+#    if [ -e $BUILD_ROOT/lib/libh3-java.so ]; then cp $BUILD_ROOT/lib/libh3-java.so $OUTPUT_ROOT ; fi
+#    if [ -e $BUILD_ROOT/lib/libh3-java.dylib ]; then cp $BUILD_ROOT/lib/libh3-java.dylib $OUTPUT_ROOT ; fi
+#    if [ -e $BUILD_ROOT/lib/libh3-java.dll ]; then cp $BUILD_ROOT/lib/libh3-java.dll $OUTPUT_ROOT ; fi
+#done
+
+
+# linux-armv6 excluded because of build failure
+for image in android-x86; do
 
     # Setup for using dockcross
     BUILD_ROOT=target/h3-java-build-$image
     mkdir -p $BUILD_ROOT
-    docker pull dockcross/$image
-    docker run --rm dockcross/$image > $BUILD_ROOT/dockcross
+    docker pull sachernar/$image
+    docker run --rm sachernar/$image > $BUILD_ROOT/dockcross
     chmod +x $BUILD_ROOT/dockcross
 
     # Perform the actual build inside Docker

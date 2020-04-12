@@ -110,7 +110,7 @@ public final class H3CoreLoader {
         // loading the shared object at the same time, bad things could happen.
 
         if (libraryFile == null) {
-            final String dirName = String.format("%s%s-%s",getLibraryPath(os), os.getDirName(), arch);
+            final String dirName = String.format("%s%s%s", getLibraryPath(os), generateDirName(os), arch);
             final String libName = String.format("libh3-java%s", os.getSuffix());
 
             final File newLibraryFile = File.createTempFile("libh3-java", os.getSuffix());
@@ -142,6 +142,11 @@ public final class H3CoreLoader {
      */
     private static String getLibraryPath(OperatingSystem os) {
         return os == OperatingSystem.ANDROID ? "lib/" : "";
+    }
+
+
+    private static String generateDirName(OperatingSystem os) {
+        return os == OperatingSystem.ANDROID ? "" : String.format("%s-", os.getDirName());
     }
 
     /**

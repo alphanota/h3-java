@@ -236,7 +236,7 @@ public class H3Core {
      * @param k         Number of rings around the origin
      */
     public List<String> kRing(String h3Address, int k) {
-        return h3ToStringList(kRing(stringToH3(h3Address), k));
+        return h3ToStringListCompat(kRing(stringToH3(h3Address), k));
     }
 
     /**
@@ -1136,6 +1136,25 @@ public class H3Core {
         return collection.stream()
                 .map(this::stringToH3)
                 .collect(Collectors.toList());
+    }
+
+    /**
+     *
+     */
+    private List<Long> stringToH3ListCompat(Collection<String> collection) {
+        List<Long> list = new ArrayList<>();
+        for(String s : collection) {
+            list.add(stringToH3(s));
+        }
+        return list;
+    }
+
+    private List<String> h3ToStringListCompat(Collection<Long> collection) {
+        List<String> list = new ArrayList<>();
+        for(Long s : collection) {
+            list.add(h3ToString(s));
+        }
+        return list;
     }
 
     /**
